@@ -1,0 +1,34 @@
+schema_version: 1
+id: text-inbox
+state_root: ./state
+mailbox:
+  provider: microsoft-graph
+  tenant_id: example-tenant
+  client_id: example-application
+  client_secret_env: INBOX_GRAPH_CLIENT_SECRET
+  address: assistant@example.org
+  intake: delta-poll
+  delivery: direct-reply
+  sender_authentication:
+    mode: exchange-authenticated
+    trusted_authserv_ids: [example.org]
+    transport_headers_verified: false
+model:
+  api: chat-completions
+  base_url: https://models.example.org/v1
+  api_key_env: INBOX_MODEL_API_KEY
+  name: example-model
+  capabilities: { tools: false, images: false, pdf: false }
+instructions:
+  agent: AGENT.md
+  workflows: []
+policy:
+  senders: [alice@example.org]
+  recipients: [alice@example.org]
+  approvers: []
+  reply: sender
+  tools: {}
+mcp: {}
+retention:
+  content_hours: 24
+  audit_days: 30

@@ -1,0 +1,49 @@
+schema_version: 1
+id: records-inbox
+state_root: /state
+mailbox:
+  provider: microsoft-graph
+  tenant_id: example-tenant
+  client_id: example-application
+  client_secret_env: INBOX_GRAPH_CLIENT_SECRET
+  address: assistant@example.org
+  intake: delta-poll
+  delivery: direct-reply
+  sender_authentication:
+    mode: exchange-authenticated
+    trusted_authserv_ids: [example.org]
+    transport_headers_verified: false
+model:
+  api: chat-completions
+  base_url: https://models.example.org/v1
+  api_key_env: INBOX_MODEL_API_KEY
+  name: example-model
+  capabilities: { tools: true, images: false, pdf: false }
+instructions:
+  agent: AGENT.md
+  workflows: []
+policy:
+  senders: [alice@example.org]
+  recipients: [alice@example.org]
+  approvers: [operator@example.org]
+  reply: sender
+  tools:
+    records.search: { effect: read, authorization: automatic }
+    records.get: { effect: read, authorization: automatic }
+    records.propose_update: { effect: read, authorization: automatic }
+    records.propose_delete: { effect: read, authorization: automatic }
+    records.apply_approved_update: { effect: write, authorization: approval }
+    records.apply_approved_delete: { effect: write, authorization: approval }
+    records.operation_status: { effect: read, authorization: automatic }
+mcp:
+  records:
+    transport: stdio
+    command: node
+    args: [/app/mcp/records/server.mjs, --root, /records, --policy, /bundle/actor-policy.json]
+    env: []
+    pinned_version: 0.1.0
+    authorization_scope: sender-group
+    actor_context: mail-agent-v1
+retention:
+  content_hours: 24
+  audit_days: 30

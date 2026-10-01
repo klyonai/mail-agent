@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "agentId": "records-inbox",
+  "mailbox": "assistant@example.org",
+  "connection": "records",
+  "members": {
+    "alice@example.org": {
+      "read": ["record-a"],
+      "edit": ["record-a"],
+      "delete": ["record-a"]
+    }
+  },
+  "approvers": ["operator@example.org"]
+}

@@ -1,0 +1,14 @@
+{
+  "format": 1,
+  "id": "record-a",
+  "revision": 1,
+  "type": "note",
+  "title": "Synthetic starter record",
+  "content": "Replace this synthetic note with an operator-reviewed record.",
+  "tags": [],
+  "source": { "kind": "operator", "referenceHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" },
+  "createdAt": 0,
+  "updatedAt": 0,
+  "updatedByHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "deleted": false
+}

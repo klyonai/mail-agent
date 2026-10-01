@@ -1,0 +1,48 @@
+x-mail-agent-image: &mail-agent-image
+  build: .
+  image: mail-agent:local
+
+services:
+  state-init:
+    <<: *mail-agent-image
+    user: "0:0"
+    entrypoint: ["/bin/sh", "-c"]
+    command: ["chown 1000:1000 /state && chmod 0700 /state"]
+    network_mode: none
+    read_only: true
+    cap_drop: [ALL]
+    cap_add: [CHOWN, FOWNER]
+    security_opt: [no-new-privileges:true]
+    volumes:
+      - agent-state:/state
+    restart: "no"
+
+  mail-agent:
+    <<: *mail-agent-image
+    user: "1000:1000"
+    command: [start, --config, /bundle/agent.yaml]
+    init: true
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    environment:
+      INBOX_GRAPH_CLIENT_SECRET: ${INBOX_GRAPH_CLIENT_SECRET:?Set INBOX_GRAPH_CLIENT_SECRET through your secret provider}
+      INBOX_MODEL_API_KEY: ${INBOX_MODEL_API_KEY:?Set INBOX_MODEL_API_KEY through your secret provider}
+    volumes:
+      - type: bind
+        source: ./agent
+        target: /bundle
+        read_only: true
+        bind:
+          create_host_path: false
+      - agent-state:/state
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    depends_on:
+      state-init:
+        condition: service_completed_successfully
+    restart: unless-stopped
+    stop_grace_period: 45s
+
+volumes:
+  agent-state:

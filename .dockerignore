@@ -1,0 +1,11 @@
+*
+!Dockerfile
+!package.json
+!package-lock.json
+!src/
+!src/**
+!examples/
+!examples/**
+!mcp/
+!mcp/records/
+!mcp/records/**

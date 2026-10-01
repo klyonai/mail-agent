@@ -1,0 +1,13 @@
+node_modules/
+state/
+**/state/
+.env
+.env.*
+*.sqlite
+*.sqlite-*
+coverage/
+release/
+*.tgz
+*.log
+customer.yaml
+customer/

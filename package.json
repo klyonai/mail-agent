@@ -1,0 +1,50 @@
+{
+  "name": "mail-agent",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/klyonai/mail-agent.git"
+  },
+  "bugs": {
+    "url": "https://github.com/klyonai/mail-agent/issues"
+  },
+  "homepage": "https://github.com/klyonai/mail-agent#readme",
+  "type": "module",
+  "engines": { "node": ">=24.21.0 <25" },
+  "bin": { "mail-agent": "src/cli.mjs" },
+  "files": [
+    "src/*.mjs", "examples/request.json", "examples/text-inbox/AGENT.md", "examples/text-inbox/agent.yaml",
+    "examples/document-inbox/AGENT.md", "examples/document-inbox/agent.yaml", "docs/document-inbox.md",
+    "examples/records-inbox/AGENT.md", "examples/records-inbox/agent.yaml",
+    "examples/records-inbox/actor-policy.json", "examples/records-inbox/record.json", "docs/records-inbox.md",
+    "mcp/records/records.mjs", "mcp/records/server.mjs", "mcp/records/README.md",
+    "docs/quickstart.md", "docs/diagnostics.md", "docs/microsoft-365-setup.md", "docs/operations.md",
+    "docs/recovery.md", "docs/support.md", "docs/public-acceptance.md", "docs/live-tests.md",
+    "docs/live-sender-setup.md", "docs/live-mcp-tests.md", "docs/endpoint-qualification.md", "docs/releasing.md",
+    "docs/mailbox-troubleshooting.md",
+    "SECURITY.md", "CONTRIBUTING.md", "CHANGELOG.md"
+  ],
+  "scripts": {
+    "start": "node src/cli.mjs start",
+    "test": "node --test test/*.test.mjs",
+    "test:live": "node scripts/live-email-e2e.mjs",
+    "test:live:mcp": "node scripts/live-mcp-qualification.mjs",
+    "test:live:model": "node scripts/endpoint-qualification.mjs",
+    "test:package": "node scripts/package-qualify.mjs",
+    "lint": "eslint .",
+    "check": "npm run lint && npm test"
+  },
+  "dependencies": {
+    "@ai-sdk/openai-compatible": "3.0.62",
+    "@modelcontextprotocol/sdk": "1.31.0",
+    "ai": "7.0.126",
+    "ajv": "8.20.0",
+    "yaml": "2.9.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "eslint": "10.11.0"
+  }
+}
