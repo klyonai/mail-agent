@@ -36,6 +36,8 @@ Private v0.1.2 at `2f99f83`, run `36927936725`, qualifies its recorded package/r
 
 Artifact-content review finds missing upstream Node license text; project and base-OS notices remain separate/present. The desired contract explicitly retains upstream notices for copied runtime binaries. Source now copies the pinned Node notice and hosted workflows verify its regular-file size/hash before preview/upload. Focused regressions pass10/10 after two initial failures; rebuilt-image qualification is pending. Previous tags/artifacts and all thirteen criteria remain unchanged; final header/reporting/advisory/platform/publication gates stay open.
 
+The Node upstream notice repair at private source `1aa43c6`, Check36929612878, passes hosted Ubuntu lint/725 tests with zero failures/skips/cancellations, fresh installed package and actual separate upstream notice/projectMIT/state checks. A byte-verified canonical-source local image also passes under amd64 emulation; private-source0600/extraction helper failures are preserved separately. All previous tags/artifacts remain unchanged. Internal metadata0.1.3 prepares a new private candidate; exact downloaded package/image qualification and protected-header/reporting/scoped-advisory/publication gates remain open.
+
 ## Delivery order and gates
 
 1. Complete administrator protected-header qualification with bounded existing test accounts and no broader grants.
