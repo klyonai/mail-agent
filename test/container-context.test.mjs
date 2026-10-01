@@ -54,10 +54,11 @@ test('declared container context includes every local COPY source and required r
   for (const filename of required) assert.ok((await stat(new URL(filename, root))).isFile());
 });
 
-test('the final runtime stage copies only Node, application and private state from the build stage', async () => {
+test('the final runtime stage copies only Node with its notice, application and private state from the build stage', async () => {
   const dockerfile = await readFile(new URL('Dockerfile', root), 'utf8');
   assert.deepEqual(declaredCopies(dockerfile).internal, [
     { stage: 'build', ownership: '', mode: '', source: '/usr/local/bin/node', target: '/usr/local/bin/node' },
+    { stage: 'build', ownership: '', mode: '', source: '/usr/local/LICENSE', target: '/usr/share/doc/node/LICENSE' },
     { stage: 'build', ownership: '', mode: '', source: '/app', target: '/app' },
     { stage: 'build', ownership: '--chown=1000:1000', mode: '', source: '/runtime-root/', target: '/' },
   ]);

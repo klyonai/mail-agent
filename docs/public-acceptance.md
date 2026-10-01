@@ -26,6 +26,8 @@ Private `v0.1.1` at `2e5a9d4` passes hosted lint/723 tests, original archive/pac
 
 The repair at private source `249b14d` passes actual local image/Compose/two-volume-mount checks and hosted Ubuntu lint/724 tests, fresh packed installation (84 files, 23 documents/76 links), actual image permission assertions, preview and MIT notice. All state checks observe 1000:1000/0700. Internal `0.1.2` prepares a distinct private candidate containing this repair; its downloaded artifact qualification remains separate and pending.
 
+Private `v0.1.2` at `2f99f83` passes original archive/package/image/source binding, fresh installation, actual 1000:1000/0700 state/Compose/repeated-volume checks, synthetic records/recovery/shutdown/TLS and matched native/OS/loader inventory. Its exact scan retains seven High findings; local image operations use emulation. Content review identifies missing Node upstream license text, separate from the project MIT notice. Source now copies the pinned Node notice and verifies its exact bytes in hosted workflows; rebuilt-image qualification remains necessary. This artifact-content issue and final release gates remain open.
+
 ## Experimental work
 
 One ordinary Office 365/real-model/stdio MCP journey verifies a scoped read, exact local approval across restart, one synthetic write/audit and a threaded reply independently observed in the recipient Inbox. A deterministic policy probe rejects a forbidden tool; the real model is not offered that tool. Live failed/interrupted effects and dependency gates remain open. MCP, image/document processing, attachment delivery, PDF processing and the records recipe remain experimental. PDF intake is not enabled as a qualified capability; actual document quality and attachment arrival are unqualified.

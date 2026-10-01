@@ -12,6 +12,8 @@ The current Dockerfile prepares a minimal Distroless runtime using the exact Nod
 
 ## Required gates before publication
 
+The original `v0.1.2` runtime/artifact checks pass their recorded scope, but its image omits Node's upstream license text. Source now retains that notice separately from the project MIT license and checks its pinned bytes before artifact creation. Qualify this repair and final artifacts independently; earlier tags/artifacts remain unchanged.
+
 The private `v0.1.1` image is unsuitable for release: its `/state` directory is mode 0755 instead of required 0700, despite declared build permissions. Package and independent synthetic checks pass separately. The corrected directory copy at private source `249b14d` passes local image/Compose/repeated-volume checks and hosted lint/724 tests, fresh packed installation, actual image permissions, preview and MIT notice. Preserve the failed tag/artifacts; independently qualify the new version-bound candidate.
 
 Release only after MA-001 through MA-007 meet their acceptance criteria. Ordinary Office 365/real-model/MCP text acceptance and independent recipient arrival pass. A fresh injected SDK 503 case supplies complete counter/reply/replay/arrival evidence while the original missing counter stays unreconstructed. Reviewed tenant roles are scoped `Mail.Read`/`Mail.Send` with the sole agent mailbox; zero Entra administrator/user consent grants were observed, and other-test-mailbox reads/sends returned 403. Protected-header verification remains open: a received Graph-MIME forgery lacked its required control, and a once-submitted Internet SMTP forgery was rejected with 450 without received-header proof.

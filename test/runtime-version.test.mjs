@@ -53,3 +53,23 @@ test('hosted checks verify actual state ownership and permissions before preview
     }
   }
 });
+
+test('hosted checks verify the pinned upstream Node notice bytes before preview or artifact creation', async () => {
+  for (const filename of ['check.yml', 'release-candidate.yml']) {
+    const workflow = parse(await readFile(new URL(`../.github/workflows/${filename}`, import.meta.url), 'utf8'));
+    const commands = Object.values(workflow.jobs).flatMap(job => job.steps.flatMap(step => step.run?.split('\n') ?? []));
+    const build = commands.findIndex(command => command.includes('docker build '));
+    const gate = commands.findIndex(command => command.includes("readFileSync('/usr/share/doc/node/LICENSE')"));
+    assert.ok(gate > build && build >= 0, 'Actual image Node notice check must follow its build');
+    const check = commands[gate];
+    assert.match(check, /docker run --rm --network none --read-only --cap-drop ALL --security-opt no-new-privileges:true --entrypoint \/usr\/local\/bin\/node/);
+    for (const assertion of ["lstatSync('/usr/share/doc/node/LICENSE')", '!s.isFile()',
+      's.isSymbolicLink()', 's.size !== 157609', "createHash('sha256').update(b).digest('hex')",
+      'b.length !== 157609', '5888dbb9a1d2b18f2c3e6c5f6af1b39de658372b402a0577b002777f14c62ace']) {
+      assert.ok(check.includes(assertion));
+    }
+    for (const [index, command] of commands.entries()) {
+      if (/ preview |docker image (inspect|save) /.test(command)) assert.ok(index > gate);
+    }
+  }
+});

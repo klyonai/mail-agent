@@ -16,6 +16,7 @@ FROM gcr.io/distroless/cc-debian13:nonroot@sha256:e792ab3d241a468a4fd7519ddbbebe
 
 WORKDIR /app
 COPY --from=build /usr/local/bin/node /usr/local/bin/node
+COPY --from=build /usr/local/LICENSE /usr/share/doc/node/LICENSE
 COPY --from=build /app /app
 COPY --from=build --chown=1000:1000 /runtime-root/ /
 USER 1000:1000
