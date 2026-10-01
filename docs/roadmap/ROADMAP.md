@@ -1,23 +1,23 @@
 # Mail Agent roadmap
 
-**Sanitized current source review · 2026-10-01 · unreleased.** This copy records the current selected source delivery state. Original dated evidence and operational records are retained privately and unchanged. Omission does not waive acceptance. [Implementation evidence](../implementation.md) and [public acceptance](../public-acceptance.md) separate software checks, live observations and remaining release gates.
+**Sanitized current source review · 2026-10-01 · unreleased.** Desired state lives in [design](../../design/vision.md). Original dated evidence is retained privately and unchanged; omission does not waive acceptance. [Implementation evidence](../implementation.md) and [public acceptance](../public-acceptance.md) distinguish software, live and release assurance.
 
 ## Current progress
 
-**5/13 items are done; milestone A is 5/7.** All thirteen current status, acceptance and dependency rows below are preserved unchanged. The selected source version passed **696 synthetic tests plus lint** on macOS Node 24.21.0. Fresh packed installation passed with **84 files, 645,719 unpacked bytes**, **23 documents and 75 resolving local links**, including MIT. These checks do not establish hosted CI, current Linux/image qualification or publication.
+**5/13 done; milestone A is 5/7.** All thirteen status/acceptance/dependency rows below remain unchanged. The private repository exists, MIT and latest-patch `0.1.x` / qualified Node 24 best-effort policy are selected. Reporting/support routes remain pending. No public release or registry image is published.
 
-All five recorded text replies were separately observed in the independent recipient Inbox. One ordinary Office 365/real-model/stdio MCP journey performed a scoped read, exact approval surviving restart, one confirmed synthetic write/audit and a threaded reply independently observed in the recipient Inbox, with zero-effect replay. Controlled failure counter completeness, all relevant tenant grants/send scope and protected-header administrator evidence remain open. Live failed/interrupted MCP effects remain distinct from earlier synthetic mail and caller-crash evidence.
+Hosted Ubuntu Node 24.21.0 CI at commit `6f166e3` passes 697 synthetic tests plus lint. Private candidate run 36911854152 / v0.1.0 produces package/image artifacts. Exact downloaded checksums, fresh installation, source/license binding, offline non-root preview and schema 5 recovery pass. Local amd64 execution is emulated on arm64. Its exact offline scan reports 0 Critical, 51 High across 13 CVEs, 155 total matches and 0 npm; no clean-image claim. These facts qualify the recorded artifacts, not this later documentation export.
 
-MIT, `klyonai/mail-agent`, intended `ghcr.io/klyonai/mail-agent` and latest-patch `0.1.x` / qualified Node 24 best-effort support are selected. Reporting/support routes require confirmation and verification. The package is private and no public artifact has been released. Earlier Linux arm64/image evidence qualifies its recorded 694-test version; the exact image retains 0 Critical and 51 High matches across 13 CVEs. It does not qualify this current exported source.
+Independent text/MCP reply arrival, complete fresh injected 503 counters/replay and sole-mailbox read/send scope with effective out-of-scope requests returning 403 are recorded. Protected-header assurance stays open: the received Graph-MIME message normalized as unauthenticated, but the missing control leaves qualification failed, and one Internet SMTP submission is rejected with 450 without received-header proof. Original failed reports remain failed; no automatic retry occurs.
 
-## Delivery order and remaining gates
+## Delivery order and gates
 
-1. Complete MA-004 controlled-failure counter evidence and administrator grant/send/header checks with bounded test accounts.
-2. Complete current selected source/history/artifact review, hosted CI, declared Linux platforms and exact image advisory review for MA-007. Confirm reporting routes and publish only after milestone A acceptance and final publication review.
-3. Complete live MCP failed/interrupted effects and independent endpoint B for beta. Experimental MCP support is not beta acceptance.
-4. Qualify image, attachment, PDF and records recipes against their criteria. PDF intake remains disabled until processor/isolation/recovery/quality gates pass.
+1. Complete administrator protected-header qualification with bounded existing test accounts and no broader grants.
+2. Review this refreshed sanitized source, final artifacts, declared platforms and residual advisories; verify reporting/support routes and released installation. If GitHub private reporting is selected, approve public source visibility, then enable/verify reporting and monitoring before first release/image. A verified private contact is an alternative. Publish only after milestone A acceptance and final review.
+3. Qualify live failed/interrupted MCP effects and an independent second model endpoint for beta.
+4. Qualify image, attachment, PDF and records recipes. PDF intake remains disabled until processor/isolation/recovery/quality gates pass.
 
-Dependencies are completion gates. Synthetic tests, live journeys, recipe quality and release qualification are distinct evidence. Historical records remain immutable; changing an unmet criterion requires a recorded design decision. Current source review is not privacy certification or release readiness.
+Dependencies gate completion. Preserve historical records. A roadblock changes design through a dated decision before criteria change; never waive an unmet criterion. This source review is not privacy certification or release readiness.
 
 ## A · Installable text-inbox alpha
 
@@ -52,4 +52,3 @@ Scope: explicit qualified document and domain recipes; preserve the one-mailbox 
 | **MA-011 · in progress** | Text attachment delivery · [architecture](../../design/architecture.md), [operations](../../design/operations.md), [delivery](../../design/attachment-delivery.md) | Enabled recipe declares required grants. Persist exact file/content/recipient intent; verify direct threaded recipient arrival with a `.txt` attachment, expiry, restart and uncertain-send recovery. No arbitrary tool paths/URLs are fetched. Document-inbox recipe installs and passes a whole-email evaluation. | MA-010 |
 | **MA-012 · in progress** | PDF processor recipe · [features](../../design/features.md), [security](../../design/security.md), [processor](../../design/pdf-processor.md) | Explicit page/byte/time limits, isolated parser/rendering or reviewed MCP contract, provenance and failure cases. Searchable-PDF output is advertised only for a configured qualified processor; dependencies ship in a reproducible bundle. | MA-011 |
 | **MA-013 · in progress** | Records/domain adapter recipe · [architecture](../../design/architecture.md), [security](../../design/security.md), [records contract](../../design/records-adapter.md) | Reviewed actor/visibility contract, authoritative records, optional coordination memory with deletion/provenance, exact governed writes, revision conflicts and adapter-specific reconciliation. Generic MCP authority cannot bypass domain approval. | MA-008, MA-006 |
-

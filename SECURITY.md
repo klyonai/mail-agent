@@ -1,10 +1,10 @@
 # Security policy
 
-Mail Agent is unreleased pre-release software intended for [klyonai/mail-agent](https://github.com/klyonai/mail-agent). It is licensed under MIT. The maintenance policy supports the latest patch release in the `0.1.x` line on Node.js 24; security and maintenance fixes are best effort, with no response-time or service-level guarantee. Public publication remains blocked until a monitored private security reporting route is selected and the remaining gates in [public acceptance](docs/public-acceptance.md) are met.
+Mail Agent is unreleased pre-release software in the currently private repository [klyonai/mail-agent](https://github.com/klyonai/mail-agent). It is licensed under MIT. The maintenance policy supports the latest patch release in the `0.1.x` line on Node.js 24; security and maintenance fixes are best effort, with no response-time or service-level guarantee. The first release/image requires a selected, verified and monitored private security reporting route and the remaining gates in [public acceptance](docs/public-acceptance.md).
 
 ## Reporting a suspected vulnerability
 
-For an existing private deployment, contact its operator through the private route already agreed for that deployment. No maintainer security contact or monitored private reporting route is currently designated. Do not put vulnerability details in public issues. GitHub private vulnerability reporting may be used only after maintainers enable and verify it for the repository; it is not currently claimed to be available. Do not send vulnerability details until a private route has been confirmed.
+For an existing private deployment, contact its operator through the private route already agreed for that deployment. No maintainer security contact or monitored private reporting route is currently designated. Do not put vulnerability details in public issues. GitHub private vulnerability reporting requires a public repository and is unavailable on the current private repository; see [GitHub requirements](https://docs.github.com/en/code-security/how-tos/report-and-fix-vulnerabilities/configure-vulnerability-reporting/configure-for-a-repository). Do not send vulnerability details until a private route has been confirmed.
 
 Do not put exploit details or private deployment data in public issues. A useful initial report contains:
 
@@ -24,6 +24,6 @@ Do not delete state, reset the mailbox cursor or clear uncertain-effect fences t
 
 There are no published supported releases yet. Once releases are published, only the latest patch release in `0.1.x` is supported, on Node.js 24. Security and maintenance fixes are best effort; there is no response-time or service-level guarantee. Any end-of-support notice will be published in the release notes. [Public acceptance](docs/public-acceptance.md) summarizes the remaining release gates. Detailed roadmap status is source-checkout-only in `docs/roadmap/ROADMAP.md`.
 
-Before publication, maintainers must select and verify a monitored private security reporting route. Release review must cover dependency/runtime advisories and exclude private source, history and artifacts. Original private evidence must be archived unchanged outside the public tree; public acceptance summaries must be separately sanitized.
+Stage and review source while private. If GitHub reporting is selected, obtain final approval for public source visibility, then enable and verify private vulnerability reporting and its monitoring before the first release/image. A confirmed alternative private contact can satisfy the reporting gate before visibility changes. No route is currently selected or claimed to be monitored. Release review must cover dependency/runtime advisories and exclude private source, history and artifacts. Original private evidence must be archived unchanged outside the public tree; public acceptance summaries must be separately sanitized.
 
 See [support policy](docs/support.md) for pending publication decisions. Deployment trust assumptions and boundaries are source-checkout-only in `design/security.md`.

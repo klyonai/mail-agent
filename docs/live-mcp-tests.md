@@ -44,7 +44,9 @@ The independent test recipient Inbox separately verifies arrival; the runner
 itself still uses only agent Sent Items for reply checks. No new permission is
 added, and no business adapter is exercised. The forbidden-tool result is the
 deterministic policy probe described above. The ordinary case does not establish
-live controlled-failure or process-interruption outcomes, full tenant grant/send
-scope or protected-header trust. MCP remains experimental until the remaining
-qualification and dependency gates in [public acceptance](public-acceptance.md)
+live controlled-failure or process-interruption outcomes or protected-header
+trust. Separate test-tenant review records scoped read/send roles, sole agent
+mailbox membership and denied reads/sends to the other test mailbox; deployment
+trust still requires its own administrator evidence. MCP remains experimental
+until the remaining qualification and dependency gates in [public acceptance](public-acceptance.md)
 are met.

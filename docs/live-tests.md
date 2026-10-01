@@ -75,20 +75,29 @@ These checks do not establish recipient arrival or tenant access/header policy.
 
 ## Remaining acceptance gates
 
-The optional paths have synthetic runner coverage. A bounded Office 365 run and
-continuation also verify clarification, a real-model same-thread follow-up,
-denied-sender silence and zero-effect replay. The original run encountered a
-clarification-rubric false rejection, which is repaired; the continuation uses
-saved state rather than resending its four initial requests. The service-failure
-reply is verified, but that original run did not retain the full injected-failure
-counter report. Separate observation in the independent test Inbox subsequently
-verifies all five replies; it adds no mail or permission changes. Complete
-failure-counter evidence and tenant security remain open MA-004 gates. The suite's Sent Items check does
-not establish delivery to the independent sender's inbox, all application
-mailbox grants, send scope or protected transport-header trust. Record those
-separately under [manual evidence](live-sender-setup.md#content-free-acceptance-evidence),
-without storing raw mail, tokens, or complete authentication headers in shared
-reports.
+The optional paths have synthetic runner coverage. Bounded Office 365 acceptance
+also verifies clarification, real-model same-thread follow-up, denied-sender
+silence and zero-effect replay. A repaired clarification evaluator and a
+continuation using saved state preserve the original failed attempt. Independent
+Inbox observations verify all five text replies.
+
+A fresh separate one-case injected SDK 503 journey verifies one interception,
+zero upstream inference, one exact deterministic reply, unchanged model/send
+counters after restart/replay, and independent Inbox arrival. The original
+missing interception counter remains unreconstructed; the fresh result supplies
+separate complete evidence rather than changing that record. This is controlled
+injection, not a real provider outage.
+
+The reviewed test application has scoped `Mail.Read`/`Mail.Send` roles and only
+the agent mailbox in scope, with zero observed Entra administrator/user consent
+grants; effective other-test-mailbox reads and sends return 403. Protected header
+assurance remains open. A received Graph-MIME forgery normalized as unauthenticated
+but lacked the wrapper's required control; a single Internet SMTP forgery was
+rejected with 450 and provides no received-header evidence. Neither establishes
+general protected-header trust. Record deployment-specific evidence under
+[manual evidence](live-sender-setup.md#content-free-acceptance-evidence), without
+raw mail, tokens or complete authentication headers in shared reports. The
+suite's Sent Items check itself still does not prove independent Inbox arrival.
 
 The runtime ignores messages sent by its own mailbox to prevent self-reply loops. The older `application-self` option is rejected by the suite before sending any mail. Historical self-mail results describe the earlier runtime; they do not establish current acceptance. Use a separate sender mailbox.
 

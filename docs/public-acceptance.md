@@ -1,22 +1,29 @@
 # First release acceptance
 
-**Status: unreleased and incomplete.** This summary describes the current first-release evidence and the remaining release gates. In a source checkout, `docs/roadmap/ROADMAP.md` is the active delivery record and `docs/implementation.md` distinguishes delivered software from external qualification. Those development records are excluded from the installed package.
+**Status: unreleased and incomplete.** This summary distinguishes delivered software, observed acceptance and remaining release gates. Source-only delivery records are `docs/roadmap/ROADMAP.md` and `docs/implementation.md`; they are excluded from the installed package.
 
-## Supported baseline
+## Supported baseline and observed acceptance
 
-The first-release baseline is one mailbox, text email and a configured model endpoint. Setup, offline/live diagnostics, local approvals, durable processing, recovery, and operator health/status are implemented. Optional policy-controlled MCP remains experimental. Use the [quickstart](quickstart.md), [live sender setup](live-sender-setup.md), and [operations guide](operations.md) for current procedures.
+The first-release baseline is one mailbox, text email and a configured model endpoint. Setup, diagnostics, local approvals, durable processing, recovery and operator health/status are implemented. Optional MCP remains experimental. See the [quickstart](quickstart.md), [live sender setup](live-sender-setup.md) and [operations guide](operations.md).
 
-Recorded integrated software checks on macOS with Node 24.21.0 include synthetic text scenarios. Exact check counts and candidate versions are recorded in the source-checkout implementation evidence. These checks do not establish live mailbox or model qualification. Bounded live text journeys verify real inference, clarification, a same-thread follow-up, sender-policy denial and no-effect replay. All five expected replies are observed separately in the independent test Inbox. The controlled service-failure explanation and no-retry replay are verified, but its original interception counter was not retained. These observations do not establish complete tenant scope or protected sender-authentication evidence. The opt-in live suite and evidence limits are described in [live tests](live-tests.md).
+Bounded live text journeys verify real inference, clarification, same-thread follow-up, denied-sender silence and no-effect replay. All five expected text replies were separately observed in the independent test Inbox. A fresh one-case controlled SDK 503 journey verifies one interception, zero upstream inference requests, one deterministic reply, unchanged restart/replay counters and independent recipient arrival. This is an injected failure, not an actual provider outage; the original missing counter remains unreconstructed.
+
+The reviewed test-tenant application has scoped `Mail.Read` and `Mail.Send` roles with the sole agent mailbox in scope. No Entra administrator/user consent grants were observed for that application; effective reads and sends to the other test mailbox returned 403. Protected sender-header assurance remains open: a received Graph-MIME forgery normalized as unauthenticated, but its wrapper lacked the required control. One Internet SMTP forgery was submitted once and rejected with 450; it supplies no received-header proof. These results do not establish general header trust for a deployment.
+
+## Private candidate qualification
+
+The private `klyonai/mail-agent` repository exists. Hosted CI at source commit `6f166e3` passes **697 synthetic tests plus lint**. Manual candidate run `36911854152`, tagged `v0.1.0`, generated private package/image artifacts. Installation from the exact downloaded tarball passes executable/setup/offline/fixture/records checks, including MIT and **84 files, 23 documents and 75 local links**. Exact image identity/source-byte binding, offline non-root preview and schema-5 recovery pass. Local Linux amd64 image execution used emulation on an arm64 engine; native hosted Ubuntu source checks are separate evidence.
+
+The exact amd64 image scan reports **0 Critical, 51 High matches across 13 CVEs, 155 total findings and zero npm findings**. It is not clean; residual advisory disposition remains open. No GitHub release or registry image has been published.
 
 ## Experimental work
 
-One ordinary Office 365/real-model/stdio MCP journey verifies a scoped read, exact local approval across restart, one synthetic write/audit and a threaded reply observed in the recipient Inbox. A deterministic probe rejects a forbidden tool; the real model is not offered that tool. Live failed/interrupted effects and tenant dependencies remain open. MCP, image/document processing and delivery, PDF processing, and the folder-backed records adapter remain experimental and are not first-release qualification. PDF intake is not enabled as a qualified capability. No claim is made about real document quality or recipient delivery of attachments.
+One ordinary Office 365/real-model/stdio MCP journey verifies a scoped read, exact local approval across restart, one synthetic write/audit and a threaded reply independently observed in the recipient Inbox. A deterministic policy probe rejects a forbidden tool; the real model is not offered that tool. Live failed/interrupted effects and dependency gates remain open. MCP, image/document processing, attachment delivery, PDF processing and the records recipe remain experimental. PDF intake is not enabled as a qualified capability; actual document quality and attachment arrival are unqualified.
 
 ## Remaining release gates
 
-- Complete controlled model-failure counter evidence, beyond the observed failure reply and replay fences.
-- Obtain administrator evidence for all relevant application read/send grants and protected sender trust. Current ID-only reads allow the agent Inbox and deny the other test Inbox; neither those results nor successful delivery establish complete tenant scope.
-- Freeze and review the current public source/history and exact release artifacts. Complete hosted CI, declared Linux platforms, residual image-advisory review and installation from published artifacts.
-- MIT, `klyonai/mail-agent`, intended `ghcr.io/klyonai/mail-agent` and latest-patch `0.1.x` / Node 24 best-effort maintenance are selected. Confirm and verify a monitored private security route and support route, and complete the publishing procedure.
+- Complete administrator protected-header verification and the remaining tenant acceptance against the deployment's actual trust boundary.
+- Review the final public source/history and exact artifacts, declared Linux platforms and residual image advisories; qualify the artifacts actually published.
+- MIT, `klyonai/mail-agent`, intended `ghcr.io/klyonai/mail-agent` and latest-patch `0.1.x` / Node 24 best-effort maintenance are selected. Confirm reporting/support routes and verify monitoring. [GitHub private vulnerability reporting](https://docs.github.com/en/code-security/how-tos/report-and-fix-vulnerabilities/configure-vulnerability-reporting/configure-for-a-repository) requires a public repository; if selected, obtain final source-visibility approval, then enable and verify reporting before the first release/image. A confirmed alternative private contact may satisfy this gate before visibility changes.
 
-The [live acceptance guide](live-tests.md) and [manual evidence table](live-sender-setup.md#content-free-acceptance-evidence) define the bounded checks and content-free evidence to record. The package remains private until the release gates are complete.
+The [live acceptance guide](live-tests.md), [manual evidence table](live-sender-setup.md#content-free-acceptance-evidence), [support policy](support.md) and [release procedure](releasing.md) define the remaining bounded work. The package remains private until release gates are complete.
