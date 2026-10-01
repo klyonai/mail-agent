@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { constants } from 'node:fs';
-import { appendFile, chmod, link, mkdtemp, open, rm, symlink, truncate, writeFile } from 'node:fs/promises';
+import { appendFile, chmod, link, mkdtemp, open, rename, rm, symlink, truncate, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { readRecoveryPlanFile } from '../src/recovery-io.mjs';
@@ -92,8 +92,7 @@ test('rejects replacement, growth and truncation between checks and reads', asyn
   await writeFile(next, '{"safe":false}', { mode: 0o600 });
   await chmod(next, 0o600);
   const replaceOpen = async (path, flags) => {
-    await rm(path);
-    await writeFile(path, '{"safe":false}', { mode: 0o600 });
+    await rename(next, path);
     return open(path, flags | constants.O_NOFOLLOW);
   };
   await assert.rejects(readRecoveryPlanFile(replacement.filename, {}, { openImpl: replaceOpen }), { code: 'RECOVERY_INPUT_UNSAFE' });
