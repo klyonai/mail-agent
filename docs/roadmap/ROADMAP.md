@@ -10,6 +10,10 @@ Hosted Ubuntu Node 24.21.0 CI at commit `6f166e3` passes 697 synthetic tests plu
 
 Independent text/MCP reply arrival, complete fresh injected 503 counters/replay and sole-mailbox read/send scope with effective out-of-scope requests returning 403 are recorded. Protected-header assurance stays open: the received Graph-MIME message normalized as unauthenticated, but the missing control leaves qualification failed, and one Internet SMTP submission is rejected with 450 without received-header proof. Original failed reports remain failed; no automatic retry occurs.
 
+The latest source-only offline promotion verifier passes the unchanged archived candidate with `prepared-not-approved` status. It checks bounded owner-only files, hashes and declared metadata against independent review anchors; archive layout, saved-image payload, live provenance and approval remain false. The manual [release procedure](../releasing.md) separately requires those checks and exact original bytes. Local macOS Node 24.21.0 qualification passes **717 synthetic tests plus lint**, zero failures/skips/cancellations, in **10.596 seconds**. Fresh installed package qualification passes **84 files, 656,537 unpacked bytes, 23 documents and 76 local links**, without deployment credentials or live mail/tools. These results precede this separate index export; hosted checks for this source are a separate gate.
+
+A fresh read-only exact-message trace diagnostic completes with the existing administrator session: one query, zero rows/details, no mail, tenant changes, model or tool calls. The owned process exits 0 in 36.29 seconds without timeout; original identity/attempt guards remain unchanged. This does not prove the rejected message's cause or header protection. Earlier authentication/probe failures remain unchanged historical evidence; no mail is resent.
+
 ## Delivery order and gates
 
 1. Complete administrator protected-header qualification with bounded existing test accounts and no broader grants.
