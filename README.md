@@ -134,7 +134,7 @@ Local servers use `node` or an explicit executable path, arguments, a declared p
 
 ## Container deployment
 
-The image pins Node.js 24.21.0, installs the exact lockfile with scripts disabled, and runs as uid/gid 1000. Global npm/npx/Corepack are removed after build-time installation. Compose starts a dedicated, network-isolated initialization service to establish ownership and mode 0700 on the named state volume. The running agent has a read-only root filesystem and read-only instruction bundle.
+The Dockerfile builds a candidate minimal runtime from digest-pinned Node and Distroless Debian 13 stages. It copies the exact Node.js 24.21.0 binary and production dependencies installed from the lockfile with scripts disabled, and runs as uid/gid 1000. The runtime contains no shell or package manager; use the Node CLI for operations and provision complete reviewed MCP bundles during construction. Compose uses Node filesystem APIs in a dedicated, network-isolated initialization service to establish ownership and mode 0700 on the named state volume. The running agent has a read-only root filesystem and read-only instruction bundle. Exact-image operations and advisory qualification remain release gates; earlier image evidence does not qualify this candidate.
 
 Create and configure `./agent` first and grant container uid/gid 1000 read access as described in the [quickstart](docs/quickstart.md). For Compose set `state_root: /state` in `agent/agent.yaml`, keep the example secret variable names, and supply their real values through the deployment environment. Both secret variables are required; Compose refuses empty values.
 

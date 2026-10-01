@@ -11,7 +11,9 @@ node src/cli.mjs approvals --config ./agent/agent.yaml --limit 20
 
 For Compose, use `docker compose exec mail-agent node /app/src/cli.mjs health --config /bundle/agent.yaml`. Substitute the other commands and flags as needed. A stopped daemon reports non-ready health; a stopped status/approval command may open the state as its sole operator owner.
 
-The production image installs application dependencies during construction and removes global npm/npx/Corepack afterward. Provision reviewed stdio MCP executables and their dependencies during image construction, or mount their complete reviewed bundle read-only. The default image supplies Node and Mail Agent; it does not install MCP servers on demand.
+The current Dockerfile builds a minimal runtime candidate with the exact reviewed Node binary and production dependencies installed in a separate build stage. Its runtime has no shell or package manager. Use the Node CLI for operational commands. Compose initializes the fixed `/state` mount with Node filesystem APIs, UID/GID 1000 and mode 0700, retaining the existing ownership capabilities and network isolation. Exact-image qualification remains separate from earlier recorded images.
+
+Provision reviewed stdio MCP executables and all native dependencies in a build stage and copy their complete bundle into a derived runtime image, or mount a complete reviewed bundle read-only. Qualify the derived image and its advisory set. The default image supplies Node and Mail Agent; it does not install MCP servers on demand. A shell-dependent server needs its own reviewed runtime bundle.
 
 ## Reading status
 

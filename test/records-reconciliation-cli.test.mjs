@@ -161,6 +161,7 @@ test('runtime reconciliation failure closes the operator scope and omits private
 test('default receipt reader rejects unsafe input before runtime access', async t => {
   const { config, filename } = await bundle(t);
   await writeFile(filename, JSON.stringify(receipt), { mode: 0o644 });
+  await chmod(filename, 0o644);
   let runtimes = 0;
   assert.equal(await runCli(command(config, filename), { stdout: output(), stderr: output(), env: {},
     createRuntime: async () => { runtimes += 1; },

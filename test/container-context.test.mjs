@@ -17,13 +17,27 @@ async function contextLines() {
   return (await readFile(new URL('.dockerignore', root), 'utf8')).trim().split('\n');
 }
 
+function declaredCopies(dockerfile) {
+  const local = [], internal = [];
+  for (const line of dockerfile.split('\n').filter(line => line.startsWith('COPY '))) {
+    if (line.startsWith('COPY --from=')) {
+      const match = /^COPY --from=(build)( --chown=1000:1000)?( --chmod=0700)? (\/[^ ]+) (\/[^ ]+)$/.exec(line);
+      assert.ok(match, 'Only declared build-stage copies are supported');
+      internal.push({ stage: match[1], ownership: match[2]?.trim() ?? '', mode: match[3]?.trim() ?? '', source: match[4], target: match[5] });
+    } else {
+      assert.doesNotMatch(line, /^COPY --/, 'Unexpected local COPY option');
+      local.push(...line.trim().split(/\s+/).slice(1, -1));
+    }
+  }
+  return { local, internal };
+}
+
 test('declared container context includes every local COPY source and required runtime input', async () => {
   const [dockerfile, lines, sources] = await Promise.all([
     readFile(new URL('Dockerfile', root), 'utf8'), contextLines(),
     readdir(new URL('src/', root)),
   ]);
-  const copied = dockerfile.split('\n').filter(line => line.startsWith('COPY '))
-    .flatMap(line => line.trim().split(/\s+/).slice(1, -1));
+  const copied = declaredCopies(dockerfile).local;
   assert.deepEqual(copied, Object.keys(sourceGates));
   for (const source of copied) {
     for (const gate of sourceGates[source]) {
@@ -38,6 +52,17 @@ test('declared container context includes every local COPY source and required r
     'mcp/records/records.mjs', 'mcp/records/server.mjs', 'mcp/records/README.md',
     ...sources.filter(name => name.endsWith('.mjs')).map(name => `src/${name}`)];
   for (const filename of required) assert.ok((await stat(new URL(filename, root))).isFile());
+});
+
+test('the final runtime stage copies only Node, application and private state from the build stage', async () => {
+  const dockerfile = await readFile(new URL('Dockerfile', root), 'utf8');
+  assert.deepEqual(declaredCopies(dockerfile).internal, [
+    { stage: 'build', ownership: '', mode: '', source: '/usr/local/bin/node', target: '/usr/local/bin/node' },
+    { stage: 'build', ownership: '', mode: '', source: '/app', target: '/app' },
+    { stage: 'build', ownership: '--chown=1000:1000', mode: '--chmod=0700', source: '/state', target: '/state' },
+  ]);
+  const finalStage = dockerfile.split(/^FROM /m).at(-1);
+  assert.deepEqual(declaredCopies(finalStage).local, []);
 });
 
 test('the primary container artifact carries the selected MIT notice', async () => {

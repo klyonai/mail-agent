@@ -151,6 +151,7 @@ test('destination and input validation never overwrite or repair unsafe paths', 
   assert.equal(await readFile(join(settings.directory, 'foreign'), 'utf8'), 'FOREIGN');
   const unsafeParent = join(settings.root, 'unsafe-parent');
   await mkdir(unsafeParent, { mode: 0o755 });
+  await chmod(unsafeParent, 0o755);
   await assert.rejects(backupState({ ...settings, directory: join(unsafeParent, 'snapshot') }), { code: 'BACKUP_DESTINATION_UNSAFE' });
   assert.equal((await lstat(unsafeParent)).mode & 0o777, 0o755);
   const alias = join(settings.root, 'parent-link');

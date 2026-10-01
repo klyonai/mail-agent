@@ -6,8 +6,16 @@ services:
   state-init:
     <<: *mail-agent-image
     user: "0:0"
-    entrypoint: ["/bin/sh", "-c"]
-    command: ["chown 1000:1000 /state && chmod 0700 /state"]
+    entrypoint: ["node", "-e"]
+    command:
+      - >-
+        const fs=require('node:fs');
+        const before=fs.lstatSync('/state');
+        if (!before.isDirectory()||before.isSymbolicLink()) throw new Error('Unsafe state directory');
+        fs.lchownSync('/state',1000,1000);
+        fs.chmodSync('/state',0o700);
+        const after=fs.lstatSync('/state');
+        if (!after.isDirectory()||after.isSymbolicLink()||after.dev!==before.dev||after.ino!==before.ino||after.uid!==1000||after.gid!==1000||(after.mode&0o777)!==0o700) throw new Error('State directory initialization failed');
     network_mode: none
     read_only: true
     cap_drop: [ALL]

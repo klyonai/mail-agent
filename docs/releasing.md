@@ -8,6 +8,8 @@ Hosted CI at source commit `6f166e3` passes 697 synthetic tests plus lint. Manua
 
 This document defines release gates and operator review. Source-only status and evidence are in `docs/roadmap/ROADMAP.md` and `docs/implementation.md`; `docs/release-plan.md` is navigation, not another backlog. The installed package includes [public acceptance](public-acceptance.md).
 
+The current Dockerfile evaluates a minimal Distroless runtime using the exact Node builder binary; Compose initialization uses Node rather than a shell. Vendor signature and focused source contracts are verified, but actual operations, package/native inventory and a fresh exact-image advisory scan are separate qualification steps. Preserve the earlier `v0.1.0` image/tag evidence and qualify a changed release candidate independently; no earlier scan extends to the new image.
+
 ## Required gates before publication
 
 Release only after MA-001 through MA-007 meet their acceptance criteria. Ordinary Office 365/real-model/MCP text acceptance and independent recipient arrival pass. A fresh injected SDK 503 case supplies complete counter/reply/replay/arrival evidence while the original missing counter stays unreconstructed. Reviewed tenant roles are scoped `Mail.Read`/`Mail.Send` with the sole agent mailbox; zero Entra administrator/user consent grants were observed, and other-test-mailbox reads/sends returned 403. Protected-header verification remains open: a received Graph-MIME forgery lacked its required control, and a once-submitted Internet SMTP forgery was rejected with 450 without received-header proof.
