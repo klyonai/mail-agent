@@ -18,6 +18,12 @@ The refreshed Dockerfile builds a pinned minimal runtime with exact Node 24.21.0
 
 The frozen local amd64 prototype passes actual records stdio approval/audit/replay, schema-5 CLI recovery/holds/fences and production CLI shutdown; a synthetic loopback TLS fixture trusts its explicit CA, rejects a wrong CA and parses 121 bundled roots. Execution is emulated on arm64, with no live provider effects. Exact-image offline scan reports **0 Critical, 7 High across four CVEs, 27 total matches and zero npm matches**. Residual glibc/GCC/zlib findings remain open; the image is not clean. Vendor index signature and verifier metadata are checked without bypass. Existing v0.1.0/tag/artifacts remain unchanged; this prototype does not claim publication source/tag binding. Refreshed hosted/native qualification, reporting routes/monitoring, protected-header evidence and public release remain separate gates.
 
+Hosted Ubuntu Node 24.21.0 checks at private commit `294ef94` pass lint/723 tests, fresh package installation (84 files, 658,635 bytes, 23 documents/76 links), image build/preview and the exact MIT notice. The reviewed selection has 221 files and preserves all thirteen criteria. These native source/build checks are separate from the locally emulated exact-image operations and scan.
+
+Subsequent native review binds all 284 shipped ELF files and the exact Node binary to signed official Node source/binary. Affected gzip-file functions remain compiled into Node; complete call-site inspection identifies no default text/shipped-records invocation path. Scoped operational disposition retains the OS and bundled-code findings, indirect-call uncertainty and requalification for added native code. This is not a patch or a clean-image claim. Fresh revised-document installation passes 84 files, 660,039 bytes and 23 documents/76 links; its initial registry-step failure remains preserved privately.
+
+Internal package metadata is now `0.1.1` to prepare a new private version-bound candidate. Its immutable source/tag, downloaded package/image and platform qualification remain pending. Earlier `v0.1.0` artifacts/tag are preserved. Protected-header evidence and reporting/support choices remain open; the content-free Microsoft support draft is unsent pending operator approval. No public release, registry publication or outside message is authorized by this preparation.
+
 ## Delivery order and gates
 
 1. Complete administrator protected-header qualification with bounded existing test accounts and no broader grants.

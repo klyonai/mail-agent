@@ -16,6 +16,12 @@ The private `klyonai/mail-agent` repository exists. Hosted CI at source commit `
 
 The exact amd64 image scan reports **0 Critical, 51 High matches across 13 CVEs, 155 total findings and zero npm findings**. It is not clean; residual advisory disposition remains open. No GitHub release or registry image has been published.
 
+## Current minimal-runtime preparation
+
+The newer private source at `294ef94` passes hosted Ubuntu lint/723 tests, installed package checks (84 files, 23 documents/76 links), image build, offline preview and MIT notice. Its separate local amd64 prototype passes private-volume initialization/repeated mounts, records/recovery/shutdown and synthetic loopback TLS; execution is emulated on arm64. This does not replace or extend the earlier versioned-artifact evidence.
+
+The exact prototype scan retains **0 Critical, 7 High across four CVEs**, 27 total findings/zero npm matches. Complete native/source review also finds affected gzip-file functions bundled into Node; no invocation path was identified in the default text/shipped-records workload. Vulnerable code remains present. Scoped review retains indirect-call uncertainty, does not claim a clean image, and requires requalification of native extensions or changed runtime configuration. A new version-bound candidate and final review remain necessary.
+
 ## Experimental work
 
 One ordinary Office 365/real-model/stdio MCP journey verifies a scoped read, exact local approval across restart, one synthetic write/audit and a threaded reply independently observed in the recipient Inbox. A deterministic policy probe rejects a forbidden tool; the real model is not offered that tool. Live failed/interrupted effects and dependency gates remain open. MCP, image/document processing, attachment delivery, PDF processing and the records recipe remain experimental. PDF intake is not enabled as a qualified capability; actual document quality and attachment arrival are unqualified.
