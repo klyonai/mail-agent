@@ -6,6 +6,7 @@ const root = new URL('../', import.meta.url);
 const sourceGates = {
   'package.json': ['!package.json'],
   'package-lock.json': ['!package-lock.json'],
+  LICENSE: ['!LICENSE'],
   src: ['!src/', '!src/**'],
   examples: ['!examples/', '!examples/**'],
   'mcp/records': ['!mcp/', '!mcp/records/', '!mcp/records/**'],
@@ -29,7 +30,7 @@ test('declared container context includes every local COPY source and required r
       assert.ok(lines.includes(gate), `Missing explicit container inclusion: ${gate}`);
     }
   }
-  const required = ['package.json', 'package-lock.json', 'examples/request.json',
+  const required = ['package.json', 'package-lock.json', 'LICENSE', 'examples/request.json',
     'examples/text-inbox/AGENT.md', 'examples/text-inbox/agent.yaml',
     'examples/document-inbox/AGENT.md', 'examples/document-inbox/agent.yaml',
     'examples/records-inbox/AGENT.md', 'examples/records-inbox/agent.yaml',
@@ -37,6 +38,22 @@ test('declared container context includes every local COPY source and required r
     'mcp/records/records.mjs', 'mcp/records/server.mjs', 'mcp/records/README.md',
     ...sources.filter(name => name.endsWith('.mjs')).map(name => `src/${name}`)];
   for (const filename of required) assert.ok((await stat(new URL(filename, root))).isFile());
+});
+
+test('the primary container artifact carries the selected MIT notice', async () => {
+  const [dockerfile, license, checkWorkflow, candidateWorkflow] = await Promise.all([
+    readFile(new URL('Dockerfile', root), 'utf8'),
+    readFile(new URL('LICENSE', root), 'utf8'),
+    readFile(new URL('.github/workflows/check.yml', root), 'utf8'),
+    readFile(new URL('.github/workflows/release-candidate.yml', root), 'utf8'),
+  ]);
+  assert.match(dockerfile, /^WORKDIR \/app$/m);
+  assert.match(dockerfile, /^COPY LICENSE \.\/$/m);
+  assert.match(license, /^MIT License\n/);
+  for (const workflow of [checkWorkflow, candidateWorkflow]) {
+    assert.match(workflow, /readFileSync\('\/app\/LICENSE'\)/);
+    assert.match(workflow, /cmp - LICENSE/);
+  }
 });
 
 test('container context remains a closed whitelist excluding private material and branding', async () => {

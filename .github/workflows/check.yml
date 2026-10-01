@@ -18,3 +18,5 @@ jobs:
       - run: npm run test:package
       - run: docker build -t mail-agent:check .
       - run: docker run --rm --network none --read-only --tmpfs /tmp:size=64m,mode=1777 mail-agent:check preview /app/examples/request.json --config /app/examples/text-inbox/agent.yaml
+      - name: Verify container license notice
+        run: docker run --rm --network none --read-only --entrypoint node mail-agent:check -e "process.stdout.write(require('node:fs').readFileSync('/app/LICENSE'))" | cmp - LICENSE

@@ -14,6 +14,7 @@ RUN apt-get update \
         openssl-provider-legacy=3.5.7-1~deb13u3 \
     && rm -rf /var/lib/apt/lists/*
 
+COPY LICENSE ./
 COPY src ./src
 COPY examples ./examples
 COPY mcp/records ./mcp/records

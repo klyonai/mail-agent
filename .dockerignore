@@ -2,6 +2,7 @@
 !Dockerfile
 !package.json
 !package-lock.json
+!LICENSE
 !src/
 !src/**
 !examples/

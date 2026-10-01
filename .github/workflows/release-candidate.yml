@@ -32,6 +32,7 @@ jobs:
         run: |
           docker build --label "org.opencontainers.image.revision=$GITHUB_SHA" --label "org.opencontainers.image.version=$RELEASE_VERSION" -t "mail-agent:candidate-$RELEASE_VERSION" .
           docker run --rm --network none --read-only --tmpfs /tmp:size=64m,mode=1777 "mail-agent:candidate-$RELEASE_VERSION" preview /app/examples/request.json --config /app/examples/text-inbox/agent.yaml
+          docker run --rm --network none --read-only --entrypoint node "mail-agent:candidate-$RELEASE_VERSION" -e "process.stdout.write(require('node:fs').readFileSync('/app/LICENSE'))" | cmp - LICENSE
           docker image inspect "mail-agent:candidate-$RELEASE_VERSION" > release/image.json
           docker image save -o release/image.tar "mail-agent:candidate-$RELEASE_VERSION"
           cd release
