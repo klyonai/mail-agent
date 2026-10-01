@@ -21,7 +21,7 @@ function declaredCopies(dockerfile) {
   const local = [], internal = [];
   for (const line of dockerfile.split('\n').filter(line => line.startsWith('COPY '))) {
     if (line.startsWith('COPY --from=')) {
-      const match = /^COPY --from=(build)( --chown=1000:1000)?( --chmod=0700)? (\/[^ ]+) (\/[^ ]+)$/.exec(line);
+      const match = /^COPY --from=(build)( --chown=1000:1000)?( --chmod=0700)? (\/[^ ]+) (\/[^ ]*)$/.exec(line);
       assert.ok(match, 'Only declared build-stage copies are supported');
       internal.push({ stage: match[1], ownership: match[2]?.trim() ?? '', mode: match[3]?.trim() ?? '', source: match[4], target: match[5] });
     } else {
@@ -59,7 +59,7 @@ test('the final runtime stage copies only Node, application and private state fr
   assert.deepEqual(declaredCopies(dockerfile).internal, [
     { stage: 'build', ownership: '', mode: '', source: '/usr/local/bin/node', target: '/usr/local/bin/node' },
     { stage: 'build', ownership: '', mode: '', source: '/app', target: '/app' },
-    { stage: 'build', ownership: '--chown=1000:1000', mode: '--chmod=0700', source: '/state', target: '/state' },
+    { stage: 'build', ownership: '--chown=1000:1000', mode: '', source: '/runtime-root/', target: '/' },
   ]);
   const finalStage = dockerfile.split(/^FROM /m).at(-1);
   assert.deepEqual(declaredCopies(finalStage).local, []);

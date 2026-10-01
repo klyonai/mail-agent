@@ -8,6 +8,10 @@ One Node 24 process serves one Microsoft 365 mailbox. Vercel AI SDK adapts infer
 
 ## Recorded qualification
 
+Private v0.1.1 run `36925965947` at `2e5a9d4` passes hosted lint/723 tests, exact downloaded archive/package/source verification, fresh installed package (84 files, 662,168 bytes, 23 documents/76 links), independent synthetic operations/TLS, all284 native byte equality and exact scan (seven High findings retained). Image qualification fails: /state is0755 instead of0700, independently confirmed in the saved layer. Source intent and earlier local metadata did not prove hosted output. Existing tags/artifacts and failed observations remain unchanged.
+
+The state-copy repair prepares /runtime-root/state as a private child, copies its parent into the runtime root, and adds actual ownership/type/mode assertions after image build in both hosted workflows. Focused regressions fail before the repair and pass9/9 after it; actual rebuilt local/hosted image qualification remains pending. All thirteen criteria and header/reporting/advisory/platform/publication gates remain intact.
+
 Hosted Ubuntu Node 24.21.0 checks at private commit `294ef94` pass lint/723 tests, fresh package installation (84 files, 658,635 bytes, 23 documents/76 links), image build/preview and the exact MIT notice. The reviewed selection has 221 files and preserves all thirteen criteria. These native source/build checks are separate from the locally emulated exact-image operations and scan.
 
 Subsequent native review binds all 284 shipped ELF files and the exact Node binary to signed official Node source/binary. Affected gzip-file functions remain compiled into Node; complete call-site inspection identifies no default text/shipped-records invocation path. Scoped operational disposition retains the OS and bundled-code findings, indirect-call uncertainty and requalification for added native code. This is not a patch or a clean-image claim. Fresh revised-document installation passes 84 files, 660,039 bytes and 23 documents/76 links; its initial registry-step failure remains preserved privately.

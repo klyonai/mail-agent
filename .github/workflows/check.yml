@@ -17,6 +17,9 @@ jobs:
       - run: npm run check
       - run: npm run test:package
       - run: docker build -t mail-agent:check .
+      - name: Verify actual image state permissions
+        run: |
+          docker run --rm --network none --read-only --cap-drop ALL --security-opt no-new-privileges:true --entrypoint /usr/local/bin/node mail-agent:check -e "const s = require('node:fs').lstatSync('/state'); if (!s.isDirectory() || s.isSymbolicLink() || s.uid !== 1000 || s.gid !== 1000 || (s.mode & 0o7777) !== 0o700) throw new Error('Unsafe image state directory.');"
       - run: docker run --rm --network none --read-only --tmpfs /tmp:size=64m,mode=1777 mail-agent:check preview /app/examples/request.json --config /app/examples/text-inbox/agent.yaml
       - name: Verify container license notice
         run: docker run --rm --network none --read-only --entrypoint node mail-agent:check -e "process.stdout.write(require('node:fs').readFileSync('/app/LICENSE'))" | cmp - LICENSE

@@ -24,6 +24,10 @@ Subsequent native review binds all 284 shipped ELF files and the exact Node bina
 
 Internal package metadata is now `0.1.1` to prepare a new private version-bound candidate. Its immutable source/tag, downloaded package/image and platform qualification remain pending. Earlier `v0.1.0` artifacts/tag are preserved. Protected-header evidence and reporting/support choices remain open; the content-free Microsoft support draft is unsent pending operator approval. No public release, registry publication or outside message is authorized by this preparation.
 
+Private v0.1.1 run `36925965947` at `2e5a9d4` passes hosted lint/723 tests, exact downloaded archive/package/source verification, fresh installed package (84 files, 662,168 bytes, 23 documents/76 links), independent synthetic operations/TLS, all284 native byte equality and exact scan (seven High findings retained). Image qualification fails: /state is0755 instead of0700, independently confirmed in the saved layer. Source intent and earlier local metadata did not prove hosted output. Existing tags/artifacts and failed observations remain unchanged.
+
+The state-copy repair prepares /runtime-root/state as a private child, copies its parent into the runtime root, and adds actual ownership/type/mode assertions after image build in both hosted workflows. Focused regressions fail before the repair and pass9/9 after it; actual rebuilt local/hosted image qualification remains pending. All thirteen criteria and header/reporting/advisory/platform/publication gates remain intact.
+
 ## Delivery order and gates
 
 1. Complete administrator protected-header qualification with bounded existing test accounts and no broader grants.
