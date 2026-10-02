@@ -90,11 +90,13 @@ injection, not a real provider outage.
 
 The reviewed test application has scoped `Mail.Read`/`Mail.Send` roles and only
 the agent mailbox in scope, with zero observed Entra administrator/user consent
-grants; effective other-test-mailbox reads and sends return 403. Protected header
-assurance remains open. A received Graph-MIME forgery normalized as unauthenticated
+grants; effective other-test-mailbox reads and sends return 403. Earlier protected
+header probes were inconclusive. A received Graph-MIME forgery normalized as unauthenticated
 but lacked the wrapper's required control; a single Internet SMTP forgery was
 rejected with 450 and provides no received-header evidence. Neither establishes
-general protected-header trust. Record deployment-specific evidence under
+general protected-header trust. The [accepted deployment assumptions](microsoft-365-setup.md#3-select-and-accept-the-sender-authentication-profile)
+treats Microsoft 365 administration as a prerequisite, so bespoke header assurance
+and Microsoft support are no longer release gates. Record deployment-specific evidence under
 [manual evidence](live-sender-setup.md#content-free-acceptance-evidence), without
 raw mail, tokens or complete authentication headers in shared reports. The
 suite's Sent Items check itself still does not prove independent Inbox arrival.

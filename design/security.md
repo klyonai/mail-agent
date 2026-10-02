@@ -2,19 +2,23 @@
 
 Mail Agent is a single-mailbox process or container with private credentials, durable state, instructions, and MCP connections. Mail content, attachments, external research, and tool results are untrusted input. Instructions and model output cannot grant permissions.
 
-Desired state · 2026-10-01. See [the roadmap](../docs/roadmap/ROADMAP.md) for delivery and [implementation evidence](../docs/implementation.md) for current assurance.
+Desired state · 2026-10-03. See [the roadmap](../docs/roadmap/ROADMAP.md) for delivery and [implementation evidence](../docs/implementation.md) for current assurance.
+
+## Threat model
+
+Assume a correctly administered Microsoft 365 tenant, mailbox and sender-authentication configuration. Tenant identity, delegation, connectors and mailbox administration are deployment prerequisites. Bespoke sender-forgery research and a Microsoft support response are not product qualification gates.
+
+The agent-specific threat is malicious content in otherwise legitimate requests: email bodies, quoted conversations, attachments, retrieved documents and MCP results. An allowed sender does not make that content authoritative. Keep instructions separate from evidence, preserve provenance, and enforce sender, recipient, resource and effect policy in code outside the model. A request or tool result cannot change those policies, disclose data to an unapproved destination or authorize a write. Acceptance must cover attempts to cross these boundaries, including injected instructions inside quoted text and tool results.
 
 ## Authorization
 
-- Admit a sender only when its address is allowed and the configured transport-authentication policy succeeds. The administrator must verify that trusted authentication headers cannot be forged or duplicated by senders. Setup guidance must explain this verification and preserve the administrator's explicit decision; a doctor may report that verification is missing but must never enable it automatically.
+- Admit a sender only when its address is allowed and the configured transport-authentication policy succeeds. Setup records the administrator's acceptance of the selected profile and Microsoft 365 deployment assumptions; a doctor must never supply that acceptance automatically.
 - Scope Microsoft Graph application access to the dedicated mailbox. Explain the independent Entra grants and Exchange application RBAC controls, and provide a way to verify both allowed and denied mailbox access. Setup and diagnostics must not request new directory or runtime grants. Use the existing authorization to check the mailbox and explain any insufficient-permission result.
 - Keep sender admission, recipient disclosure, resource visibility, and change authority as separate decisions. Check current policy before every read, tool action, approval continuation, and send. Tool annotations and prompt instructions do not establish authority.
 - Deny tools by default. Reads require authorized resource visibility and approved data destinations. Mutations require exact approval or a bounded operator-granted capability. Bind approvals to the actor, tool, canonical arguments, target revision, policy version, and expiry; recheck authority before execution. Unknown effects require review.
 - Direct replies may include only authorized recipients. Recheck disclosure policy when adding recipients. Suppress automatic messages, self-mail, bounces, and loops. Never reveal hidden resource names in refusals.
 
-Choose one explicit transport profile: trusted DMARC results (`exchange-authenticated`) or same-tenant Exchange submission (`exchange-internal`). Require equal sender/from addresses and unambiguous trusted results; the internal profile also requires configured domains and tenant, Internal authentication, Hosted origin and Originating direction. There is no fallback between profiles. Administrator verification covers connectors and header protection; legitimate observed headers do not establish general trust. Domain authentication alone does not prove a particular person's identity.
-
-Transport qualification must distinguish authenticated mailbox submission from unauthenticated Internet ingress. Record the actual received headers and production admission decision without replacing missing fields. Inspect connector/rule trust with existing administrator access. SMTP rejection, missing control evidence and automatic-mail suppression do not prove header protection. Keep an inconclusive case open; never retry an uncertain submission automatically or broaden tenant grants to complete a test.
+Choose one explicit transport profile: trusted DMARC results (`exchange-authenticated`) or same-tenant Exchange submission (`exchange-internal`). Require equal sender/from addresses and unambiguous trusted results; the internal profile also requires configured domains and tenant, Internal authentication, Hosted origin and Originating direction. There is no fallback between profiles. Check ordinary allowed/denied sender behavior and mailbox scope against this configuration. These checks establish application behavior under the accepted deployment assumptions, not an independent guarantee about Microsoft 365 identity security.
 
 Local approval commands rely on host access control; an operator-supplied actor address is an audit attribution, not independent email authentication. Verified email approvals require a separate identity/control contract. Automatic writes require schema-enforced argument/target bounds and scoped credentials. Domain adapters enforce governed approvals and revision checks; generic capabilities cannot override them.
 

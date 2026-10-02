@@ -6,7 +6,7 @@ This guide prepares one text-only Mail Agent deployment for one Microsoft 365 ma
 
 Ask a tenant administrator to register a dedicated single-tenant application and restrict `Application Mail.Read` and `Application Mail.Send` to the dedicated mailbox with Exchange application RBAC. Review independent Entra grants as described in the [administrator guide](microsoft-365-setup.md). Do not add directory or license permissions to the agent.
 
-The mail administrator must review the actual transport and choose one sender-authentication profile. For `exchange-authenticated`, verify that the trusted authority's authentication results cannot be forged or duplicated by senders. For `exchange-internal`, verify the same-tenant Exchange evidence and protection of its headers. Neither a successful Graph probe nor entered domains establishes this trust. Mail Agent setup leaves transport verification unset until an administrator has made that decision.
+The mail administrator chooses one sender-authentication profile, checks that ordinary messages supply its required evidence, and accepts the Microsoft 365 deployment assumptions described in the [administrator guide](microsoft-365-setup.md#3-select-and-accept-the-sender-authentication-profile). Correct tenant identity, mailbox and transport administration is a prerequisite. Routine setup requires no Microsoft support ticket or bespoke header-forgery testing. Mail Agent setup leaves the existing transport-verification flag unset until the administrator deliberately records that acceptance.
 
 Gather the mailbox address, tenant ID, application/client ID, model HTTPS endpoint and model name, allowed sender and reply-recipient addresses, and the selected profile's trusted authentication-service ID or sender domain. Keep the application secret and model API key in your deployment secret manager; setup stores environment-variable names, never secret values.
 
@@ -80,7 +80,7 @@ docker compose --env-file /absolute/path/to/mail-agent.env build
 docker compose --env-file /absolute/path/to/mail-agent.env run --rm mail-agent doctor --config /bundle/agent.yaml
 ```
 
-The `run` command starts its required `state-init` dependency, so it initializes local volume ownership before diagnosis. The offline doctor does not contact external services. To check bundle readability and schema independently of readiness prerequisites, run the same command with `check` instead of `doctor`. Once the administrator has verified sender-header trust, explicitly set `transport_headers_verified: true` in the bundle and rerun offline diagnosis.
+The `run` command starts its required `state-init` dependency, so it initializes local volume ownership before diagnosis. The offline doctor does not contact external services. To check bundle readability and schema independently of readiness prerequisites, run the same command with `check` instead of `doctor`. Once the administrator accepts the selected profile and deployment assumptions, explicitly set `transport_headers_verified: true` in the bundle and rerun offline diagnosis.
 
 Run live diagnosis only when ready to contact the configured services:
 
@@ -113,4 +113,4 @@ Use `approve` and `resolve` only after reviewing the exact action and its eviden
 
 ## What requires a human administrator
 
-An independent operator can install the bundle, run offline checks, inspect the container, and conduct the synthetic acceptance procedure after tenant access is provided. A tenant/mail administrator must establish and document Exchange header protection and scoped application authorization, and must verify both allowed and denied mailbox access. Those trust and authorization decisions cannot be established by a colleague running setup or by a green doctor result.
+An independent operator can install the bundle, run offline checks, inspect the container, and conduct the synthetic acceptance procedure after tenant access is provided. A tenant/mail administrator accepts the selected authentication profile and Microsoft 365 deployment assumptions, configures scoped application authorization, and verifies allowed/denied mailbox access. Setup and a green doctor result cannot supply that administrator decision. Product qualification does not require proving Exchange header protection independently.

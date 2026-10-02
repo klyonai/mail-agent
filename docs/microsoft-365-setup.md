@@ -42,11 +42,11 @@ Use a real existing out-of-scope test mailbox for the second check. The RBAC sim
 
 `EmailAddresses` is used deliberately for recipient filtering; inspect the actual result rather than assuming the mailbox address uniquely scopes the app. [Filterable recipient properties](https://learn.microsoft.com/en-us/powershell/exchange/recipientfilter-properties?view=exchange-ps#primarysmtpaddress).
 
-## 3. Establish sender transport trust
+## 3. Select and accept the sender authentication profile
 
-Choose one supported profile in [the authentication guide](../README.md#microsoft-365-prerequisites): trusted DMARC authority or reviewed same-tenant Exchange submission. Check actual header format, connector trust and protection against forged/duplicated headers, using controlled legitimate and hostile test messages. Review both allowed and denied senders.
+Choose one supported profile in [the authentication guide](../README.md#microsoft-365-prerequisites): trusted DMARC authority or same-tenant Exchange submission. Check that ordinary messages supply the configured evidence and review allowed/denied sender behavior. Correct Microsoft 365 identity, mailbox and transport administration is a deployment prerequisite; bespoke forgery testing or Microsoft support is not required for product acceptance.
 
-Set `transport_headers_verified: true` only after that administrator verification. `doctor` reports this recorded decision; neither a green read probe nor entered tenant/domain values establish header trust. Sensitive approval identity remains a separate contract. Record the reviewer, profile, scope, evidence and review date privately without storing raw messages in public project docs.
+The runtime retains its existing `transport_headers_verified` gate. Set it deliberately after the administrator accepts the selected profile and deployment assumptions. `doctor` reports the recorded decision and never enables it automatically. A green probe does not independently certify tenant security. Sensitive approval identity remains a separate contract. Record the reviewer, profile, scope and acceptance date privately without raw messages in public project docs.
 
 ## 4. Hand off configuration and acceptance
 

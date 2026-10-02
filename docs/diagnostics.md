@@ -30,7 +30,7 @@ Each check reports **pass**, **fail** or **not-checked**, a stable safe code and
 | Placeholder values | Replace example tenant/application/model identities, endpoints and policy addresses. |
 | Missing environment variables | Supply the named variables through the deployment environment or secret manager; never paste their values into reports. |
 | State access/privacy | Use a private local volume owned by the runtime user; inspect ownership, modes and parent paths. |
-| Missing transport verification | Ask the mail administrator to establish the configured header trust. A successful Graph probe cannot establish it. |
+| Missing transport verification | Ask the mail administrator to accept the selected authentication profile and deployment assumptions, then deliberately record that decision. A successful Graph probe cannot supply the acceptance. |
 | Credential failure | Check application/tenant identity, credential value and expiry with the administrator. |
 | Access denied | Check the affected mailbox operation and scoped authorization. Do not add broad directory grants as a shortcut. |
 | Mailbox unavailable | Check address, active recipient/mailbox state and licensing/provisioning. See [mailbox troubleshooting](mailbox-troubleshooting.md); the status alone cannot establish the cause. |
@@ -42,6 +42,6 @@ Reports never include provider error bodies, tokens, model prompts/results, raw 
 
 ## What a passing probe means
 
-Graph readiness establishes that the configured app can perform the tested mailbox read. It does not establish send authority, allowed/denied scope across other mailboxes, inbound authentication-header protection or recipient delivery. Model compatibility does not establish task quality. MCP discovery does not establish per-sender resource visibility or safe writes.
+Graph readiness establishes that the configured app can perform the tested mailbox read. It does not establish send authority, allowed/denied scope across other mailboxes or recipient delivery. Correct Microsoft 365 administration remains an accepted deployment prerequisite; the probe does not supply administrator acceptance of those assumptions. Model compatibility does not establish task quality. MCP discovery does not establish per-sender resource visibility or safe writes.
 
 `check` retains its existing offline/live behavior. `preview` remains a deterministic fixture. Use the [controlled live email suite](live-tests.md) for actual intake, inference and reply evidence. Stop other consumers of the dedicated test inbox before running that suite, and explicitly review its bounded synthetic email effects.

@@ -4,7 +4,7 @@ A configurable Microsoft 365 inbox agent. Each process serves one mailbox with i
 
 The current implementation uses the Vercel AI SDK behind a small model interface. Configure an OpenAI-compatible Chat Completions endpoint; no Vercel hosting or account is required. SDK telemetry is disabled. Mail Agent controls permissions, tool execution, approvals, persisted jobs, and replies.
 
-This is an unreleased implementation. Its supported baseline, synthetic checks, bounded live text evidence, limitations, and remaining first-release gates are summarized in [public acceptance](docs/public-acceptance.md). Replies observed in Sent Items do not establish independent recipient arrival or tenant security qualification. Offline previews use fixtures and do not contact Microsoft 365.
+This source describes the prepared alpha implementation. Its baseline, synthetic checks, bounded live text evidence, limitations and candidate preparation gates are summarized in [public acceptance](docs/public-acceptance.md). [GitHub release notes](https://github.com/klyonai/mail-agent/releases) identify published versions and subsequent exact-artifact qualification. Replies observed in Sent Items do not establish independent recipient arrival. Offline previews use fixtures and do not contact Microsoft 365.
 
 ## Configure a text inbox
 
@@ -44,7 +44,7 @@ sender_authentication:
   transport_headers_verified: true
 ```
 
-Set `transport_headers_verified: true` only after the mail administrator verifies that senders cannot inject or duplicate authentication results attributed to the configured authority. The receiving transport must strip forged results and supply its own trusted header. Merely changing this flag does not establish trust.
+The existing `transport_headers_verified` flag is required by the runtime. Set it deliberately after the mail administrator accepts the selected profile and its Microsoft 365 deployment assumptions. It records an operator decision, not software proof of header protection. Setup never enables it automatically. Routine qualification does not require bespoke header-forgery testing or a Microsoft support ticket; see [the deployment assumptions](docs/microsoft-365-setup.md#3-select-and-accept-the-sender-authentication-profile).
 
 The adapter requires exactly one trusted `Authentication-Results` header containing `dmarc=pass` with `header.from` equal to the sender's domain. The selected `from` and `sender` must agree. Headers containing comments, ambiguous results, missing authority, or mismatched domains fail authentication. Internal `AuthAs` headers alone do not establish identity. Check the actual tenant header format before deployment.
 
@@ -59,9 +59,9 @@ sender_authentication:
   transport_headers_verified: true
 ```
 
-This requires the configured GUID tenant ID, equal sender/from addresses, and unambiguous Exchange evidence for Internal authentication, same-tenant origin, Hosted source and Originating direction. An optional authentication source must be beneath `prod.outlook.com`. Missing, duplicate or conflicting evidence denies admission. This profile does not fall back to DMARC. Administrator verification must cover trusted connectors and protection of these headers; observing them on one legitimate message establishes no general trust guarantee. See [Microsoft's header firewall description](https://learn.microsoft.com/en-us/exchange/header-firewall-exchange-2013-help).
+This requires the configured GUID tenant ID, equal sender/from addresses, and unambiguous Exchange evidence for Internal authentication, same-tenant origin, Hosted source and Originating direction. An optional authentication source must be beneath `prod.outlook.com`. Missing, duplicate or conflicting evidence denies admission. This profile does not fall back to DMARC. Correct Microsoft 365 identity, mailbox and transport administration is an accepted deployment assumption. The adapter enforces the configured evidence checks; it does not independently certify the tenant's security.
 
-After configuring real secrets and the verified transport policy:
+After configuring real secrets and accepting the selected transport policy:
 
 ```sh
 node src/cli.mjs check --config ./agent/agent.yaml --live

@@ -2,23 +2,60 @@
 
 ## Current status
 
-The project is pre-release software. The `klyonai/mail-agent` repository exists privately; `package.json` remains `private`. Internal version `0.1.3` prepares a new private candidate containing the qualified state-copy and Node-notice repairs; its source/tag/artifacts require independent binding and qualification. The earlier `v0.1.0`, failed `v0.1.1` and notice-incomplete `v0.1.2` tags and artifacts remain unchanged, with no public GitHub release or registry image published. Distribution is GitHub source and a versioned image intended for `ghcr.io/klyonai/mail-agent`; Docker is the primary deployment artifact and public npm publication is not requested. MIT and latest-patch `0.1.x` support on qualified Node.js 24 are selected, with best-effort maintenance/security fixes and no response-time or service-level guarantee. Reporting and general support routes still require user selection and verification.
+This section records candidate preparation on 2026-10-03. The corresponding
+GitHub release records later artifact qualification and publication receipts.
 
-Hosted CI at source commit `6f166e3` passes 697 synthetic tests plus lint. Manual candidate run `36911854152` generated private package/image artifacts. Exact downloaded package installation, image/source-byte binding, offline non-root preview and schema-5 recovery pass. Local Linux amd64 image execution used emulation on an arm64 engine; native hosted Ubuntu source checks are separate. The exact amd64 image scan retains 0 Critical, 51 High matches across 13 CVEs, 155 total findings and zero npm findings. It is not clean; advisory disposition remains open.
+The project is pre-release software. The `klyonai/mail-agent` repository is
+private, `package.json` remains `private`, and no public release or registry
+image has been published. Internal version `0.1.4` is a documentation-only
+candidate preparation; its tag, package and version-bound image do not yet
+exist. It updates shipped operator guidance to match the accepted threat-model
+scope. The v0.1.3 tag and artifacts remain unchanged; its package documents
+predate that scope decision, so its package is not reused for this release.
 
-This document defines release gates and operator review. Source-only status and evidence are in `docs/roadmap/ROADMAP.md` and `docs/implementation.md`; `docs/release-plan.md` is navigation, not another backlog. The installed package includes [public acceptance](public-acceptance.md).
+Distribution is GitHub source and a versioned image intended for
+`ghcr.io/klyonai/mail-agent`; Docker is the primary deployment artifact and
+public npm publication is not requested. MIT and latest-patch `0.1.x` support
+on qualified Node.js 24 are selected, with best-effort maintenance/security
+fixes and no response-time or service-level guarantee. GitHub private
+vulnerability reporting and Issues are selected; public availability and
+maintainer monitoring still require verification.
 
-The current Dockerfile prepares a minimal Distroless runtime using the exact Node builder binary; Compose initialization uses Node rather than a shell. The local prototype has separate vendor-signature, actual state/operations/TLS, complete native inventory and exact-image scan evidence. Its scan retains seven High matches across four CVEs; signed source/binary review also finds affected gzip-file functions bundled into Node. No default text/records invocation path was identified, but vulnerable code and indirect-call uncertainty remain. Present the scoped disposition at final release review and requalify added native code. Hosted source/package/image preview passes; a fresh version-bound candidate is still required. Preserve the earlier `v0.1.0` image/tag evidence and qualify a changed release candidate independently; no earlier scan extends to the new image.
+## Latest completed candidate evidence
+
+The exact private v0.1.3 package and Linux amd64 image passed their recorded
+hosted, installed-consumer and operational qualification. Hosted Ubuntu passed
+lint and 725 tests. Exact-image operations used amd64 emulation on an arm64 host;
+native operational qualification and arm64 support were not established. The
+scan retained 0 Critical, 7 High matches across four CVEs, and 27 total
+findings. Vulnerable code remains present, including bundled Node code, and
+indirect-call uncertainty remains. The limited review is neither a clean-image
+claim nor a formal unreachability proof.
+
+The package's shipped operator documents predate the accepted scope update, so
+their approval evidence does not qualify changed 0.1.4 package bytes. The new
+package and version-bound image need one exact qualification run. Unaffected
+source-only evidence need not be repeated; changed package/image bytes require
+their own binding and review.
 
 ## Required gates before publication
 
-The original `v0.1.2` runtime/artifact checks pass their recorded scope, but its image omits Node's upstream license text. Source now retains that notice separately from the project MIT license and checks its pinned bytes before artifact creation. The repair at private source `1aa43c6` passes hosted lint/725 tests, actual upstream notice/project MIT/state assertions and a separate locally emulated image check. Qualify the new0.1.3 final artifacts independently; earlier tags/artifacts remain unchanged.
+Release only after MA-001 through MA-007 meet their acceptance criteria. The
+ordinary live text journey, independent recipient arrival, injected SDK 503
+case, and scoped mailbox read/send outcomes are recorded. The MA-004 audit
+verifies its revised criterion, including administrator acceptance of the
+deployment assumptions and quoted-injection coverage. No additional header-forgery
+test or Microsoft support response is required; runtime admission checks are
+unchanged.
 
-The private `v0.1.1` image is unsuitable for release: its `/state` directory is mode 0755 instead of required 0700, despite declared build permissions. Package and independent synthetic checks pass separately. The corrected directory copy at private source `249b14d` passes local image/Compose/repeated-volume checks and hosted lint/724 tests, fresh packed installation, actual image permissions, preview and MIT notice. Preserve the failed tag/artifacts; independently qualify the new version-bound candidate.
-
-Release only after MA-001 through MA-007 meet their acceptance criteria. Ordinary Office 365/real-model/MCP text acceptance and independent recipient arrival pass. A fresh injected SDK 503 case supplies complete counter/reply/replay/arrival evidence while the original missing counter stays unreconstructed. Reviewed tenant roles are scoped `Mail.Read`/`Mail.Send` with the sole agent mailbox; zero Entra administrator/user consent grants were observed, and other-test-mailbox reads/sends returned 403. Protected-header verification remains open: a received Graph-MIME forgery lacked its required control, and a once-submitted Internet SMTP forgery was rejected with 450 without received-header proof.
-
-MA-007 retains final public source/history/artifact review, declared platform qualification, residual image-advisory disposition, verified reporting/support routes and publishing gates. The repository exists privately; GHCR publishing and a public release are unverified. GitHub private vulnerability reporting requires a public repository, as documented in [GitHub reporting requirements](https://docs.github.com/en/code-security/how-tos/report-and-fix-vulnerabilities/configure-vulnerability-reporting/configure-for-a-repository). If selected, stage and review source while private, obtain final approval for public visibility, then enable and verify reporting and monitoring before the first release/image. A confirmed alternative private contact can satisfy the reporting gate before visibility changes.
+MA-007 still requires final public source/history/artifact review, explicit
+disposition of the retained image findings and scoped uncertainty, declared
+platform disclosure, a qualified 0.1.4 package/image, verified reporting and
+support routes, and approval for publication. GitHub private vulnerability
+reporting requires a public repository, as documented in [GitHub reporting
+requirements](https://docs.github.com/en/code-security/how-tos/report-and-fix-vulnerabilities/configure-vulnerability-reporting/configure-for-a-repository).
+Obtain approval for source visibility before enabling the selected reporting
+route; verify feature availability and maintainer monitoring before release.
 
 Before publication:
 
@@ -64,7 +101,7 @@ The network-free command checks the bounded inventory, actual file hashes, tarba
 
 3. Before approval, bind actual layout/content qualification of the exact downloaded `.tgz` and `image.tar` to their reviewed SHA-256 values. Check bounded archive entry paths/types/count/unpacked size/modes, without traversal, links or unexpected payloads; require exact package inventory/content and a clean consumer installation with lifecycle scripts disabled. Require saved-image content/source binding and loaded image ID/platform/labels; selected-image inspection alone does not review all archive contents. Reuse unchanged qualification evidence only when both archive hashes match. `pack.json` is declared metadata, and a fresh source `test:package` result does not qualify a different release tarball.
 
-Present that exact manifest digest, full source/tag, destinations and reviewed release-note hash for final user approval. Confirm every MA-001–MA-007 gate, public source/history/artifact review, protected-header acceptance, residual advisory disposition, qualified platform, maintenance policy and selected reporting/support routes. Verify the repository is currently public and the private reporting route is enabled where applicable, monitored and usable. Repository visibility, GHCR package visibility and release publication are distinct approved effects. No contact or gate may be assumed from a successful verifier result. If artifacts or policy documents change, qualify a new candidate.
+Present that exact manifest digest, full source/tag, destinations and reviewed release-note hash for final user approval. Confirm every MA-001–MA-007 gate, public source/history/artifact review, accepted deployment assumptions, residual advisory disposition, qualified platform, maintenance policy and selected reporting/support routes. Verify the repository is currently public and the private reporting route is enabled where applicable, monitored and usable. Repository visibility, GHCR package visibility and release publication are distinct approved effects. No contact or gate may be assumed from a successful verifier result. If artifacts or policy documents change, qualify a new candidate.
 
 ### Promote after approval
 
@@ -80,8 +117,9 @@ After a lost push, upload or publish response, inspect the exact remote image/ta
 ## Public evidence preparation
 
 [The separate acceptance summary](public-acceptance.md) describes product-level
-evidence and its limits without operational incident narratives. It is included in the npm artifact; private source evidence is not. The npm filename allowlist
-excludes live evidence and roadmap history; this does not review their contents,
+evidence and its limits without operational incident narratives. It is included
+in the package archive; private source evidence is not. The explicit package
+filename allowlist excludes live evidence and roadmap history; this does not review their contents,
 the public source tree or reachable Git history.
 
 Before archiving, inventory the original evidence and retain a private manifest
@@ -99,7 +137,6 @@ Maintain only versions covered by the published support policy. Review dependenc
 
 ## Decisions and acceptance still required
 
-- Select and verify private security reporting and general support routes. If GitHub reporting is selected, approve public source visibility before feature enablement and verify monitoring before the first release/image.
-- Complete protected-header administrator acceptance and the remaining deployment trust evidence.
+- Enable and verify the selected GitHub private vulnerability reporting and Issues routes. Approve public source visibility before feature enablement and verify monitoring before the first release/image.
 - Review final public source/history/artifacts, declared image platforms and residual advisories; qualify the artifacts actually published.
 - Verify GHCR publishing access and complete final release notes/publication review. The MIT, organization, `0.1.x`/Node 24 and best-effort support policy decisions are already recorded.

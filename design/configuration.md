@@ -58,7 +58,7 @@ retention:
   audit_days: 30
 ```
 
-Replace example identities and endpoints. Set `transport_headers_verified: true` only after a mail administrator verifies protection of the trusted authentication headers. This field records that decision; it does not create trust. The adapter currently supports the global Microsoft cloud only. See the [authentication profiles](../README.md#microsoft-365-prerequisites).
+Replace example identities and endpoints. The existing `transport_headers_verified` field records the mail administrator's explicit acceptance of the selected authentication profile and Microsoft 365 deployment assumptions. It does not create trust or prove header protection. Keep it false in generated examples until configured deliberately. The adapter currently supports the global Microsoft cloud only. See the [authentication profiles](../README.md#microsoft-365-prerequisites).
 
 ## Target setup and lifecycle contract
 
@@ -66,7 +66,7 @@ Setup is guided and useful before credentials are available. Guided and noninter
 
 Validate the complete bundle in a private sibling staging directory, reserve a new target directory without replacing an existing path, and publish complete files exclusively. Publish `agent.yaml` last as the completion marker; before it exists, the target is incomplete and cannot be loaded. This provides atomic file visibility and a valid final configuration, rather than promising portable atomic replacement of an entire directory. Clean up only files and directories owned by the failed initializer. A process crash may leave an incomplete target that the operator must inspect and remove before trying again.
 
-A doctor should validate the bundle offline first, then offer bounded read-only connectivity checks when requested. It should use existing configured credentials and permissions, make no mailbox writes, and never request new directory or runtime grants. Report stable sanitized diagnostic codes and recovery guidance, not provider bodies, secrets, or private message content. Transport-header trust remains an administrator decision and must not be changed by setup or diagnosis.
+A doctor should validate the bundle offline first, then offer bounded read-only connectivity checks when requested. It should use existing configured credentials and permissions, make no mailbox writes, and never request new directory or runtime grants. Report stable sanitized diagnostic codes and recovery guidance, not provider bodies, secrets, or private message content. Acceptance of deployment trust assumptions remains an administrator decision and must not be changed by setup or diagnosis.
 
 Configuration reloads should validate a complete candidate before replacing the active bundle. A failed candidate leaves the last valid bundle in force and blocks actions that depend on newly edited authority until policy is valid. Changes to identity, connections, state, budgets, and retention continue to require an explicit restart. Preserve one mailbox agent per process/container and its private state boundary.
 

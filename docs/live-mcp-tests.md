@@ -4,7 +4,7 @@ MA-008 qualification uses `npm run test:live:mcp -- ...`. It runs the actual run
 
 ## Preconditions and effects
 
-Use a dedicated test mailbox with **every other consumer stopped**, an independent authorized sender, a working configured model endpoint, and the private credentials described in [live email tests](live-tests.md). Verify the endpoint and tool capability before sending mail; an example URL is not a live dependency. Production identity, transport and recipient gates apply unchanged. Administrator verification of trusted headers remains required.
+Use a dedicated test mailbox with **every other consumer stopped**, an independent authorized sender, a working configured model endpoint, and the private credentials described in [live email tests](live-tests.md). Verify the endpoint and tool capability before sending mail; an example URL is not a live dependency. Production identity, transport and recipient gates apply unchanged. Record administrator acceptance of the configured authentication profile and Microsoft 365 deployment assumptions.
 
 The source bundle must contain no MCP connections or tool policies. The runner copies its mail/model configuration into new private temporary state and supplies only the reviewed synthetic adapter under `test/fixtures/live-mcp/` in the source checkout. It enables tool inference for that copy, grants one automatic read and requires exact local approval for one fixed note in a fresh UUID namespace. It does not grant authority over business records or modify the source bundle.
 
@@ -44,9 +44,11 @@ The independent test recipient Inbox separately verifies arrival; the runner
 itself still uses only agent Sent Items for reply checks. No new permission is
 added, and no business adapter is exercised. The forbidden-tool result is the
 deterministic policy probe described above. The ordinary case does not establish
-live controlled-failure or process-interruption outcomes or protected-header
-trust. Separate test-tenant review records scoped read/send roles, sole agent
-mailbox membership and denied reads/sends to the other test mailbox; deployment
-trust still requires its own administrator evidence. MCP remains experimental
+live controlled-failure or process-interruption outcomes. Separate test-tenant
+review records scoped read/send roles, sole agent mailbox membership and denied
+reads/sends to the other test mailbox. Correct Microsoft 365 administration is
+an accepted deployment prerequisite; bespoke protected-header assurance is not
+a qualification gate. Agent acceptance retains tool-result injection and
+application-enforced authority checks. MCP remains experimental
 until the remaining qualification and dependency gates in [public acceptance](public-acceptance.md)
 are met.

@@ -55,7 +55,7 @@ Record the manual checks separately from the runner report. Keep tenant addresse
 | Independent recipient arrival | One row per synthetic case, including `model-unavailable` when used: sender role/hash, case name, arrived yes/no, and observed time. Verify in the sender inbox manually; do not grant the runner `Mail.Read`. Sent Items evidence alone is not recipient arrival. |
 | Allowed mailbox scope | Administrator/reviewer role, date, test mailbox hash, tested operation, and observed allow/deny result. |
 | Denied mailbox scope | Out-of-scope mailbox hash, tested operation, and observed denial. Include independent review of any unscoped Entra application grants. |
-| Sender trust | Selected authentication profile, trusted authority/domain label, administrator/reviewer role, review date, and protected/forgery-resistant result. Do not copy raw authentication headers into the shared record. |
+| Sender admission | Selected authentication profile, authority/domain label, administrator/reviewer role, acceptance date, configured deployment assumptions and observed allowed/denied sender outcomes. Do not copy raw authentication headers into the shared record. |
 | Limitations | Any check not performed and the evidence still needed. Do not infer delivery, mailbox scope, or header trust from a green live probe. |
 
-This evidence supports the open MA-004 tenant and recipient gates; synthetic runner results do not replace administrator verification or a separate recipient inbox check.
+This evidence supports MA-004 sender, tenant and recipient acceptance; synthetic runner results do not replace recorded deployment assumptions or a separate recipient inbox check. Bespoke protected-header assurance is outside the accepted product threat model.
