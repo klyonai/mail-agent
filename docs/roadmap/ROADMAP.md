@@ -1,17 +1,17 @@
 # Mail Agent roadmap
 
-Sanitized source review · 2026-10-03 · unreleased. [Design](../../design/vision.md) owns the desired state; this is the active delivery list. Original private incident evidence and historical records remain archived unchanged outside this export. Omission does not waive acceptance.
+Sanitized delivery state · 2026-10-03 · 0.1.4 alpha released. [Design](../../design/vision.md) owns the desired state; this is the active delivery list. Original private incident evidence and historical records remain archived unchanged outside this export. Omission does not waive acceptance.
 
 ## Current progress
 
-**6/13 items are done; milestone A is 6/7.** See [public acceptance](../public-acceptance.md) for observed qualification and [implementation](../implementation.md) for its scope. Microsoft 365 administration is an accepted deployment assumption. The [dated scope decision](history/2026-10-03-agent-threat-model-scope.md) explicitly amends only MA-004; prior inconclusive header probes remain inconclusive, and Microsoft support is no longer a release dependency.
+**7/13 items are done; milestone A is 7/7.** See [public acceptance](../public-acceptance.md) for observed qualification and [implementation](../implementation.md) for its scope. Microsoft 365 administration is an accepted deployment assumption. The [dated scope decision](history/2026-10-03-agent-threat-model-scope.md) explicitly amends only MA-004; prior inconclusive header probes remain inconclusive, and Microsoft support is no longer a release dependency.
 
-GitHub private vulnerability reporting and Issues are selected. Public visibility, enabled reporting, monitoring, exact artifact/advisory review and publication still require the final release gates. No public release/image or npm publication is claimed.
+[The public alpha summary](history/2026-10-03-public-alpha-release.md) verifies original release assets, anonymous image installation and fresh public package installation. GitHub private reporting/Issues and administrator notification subscription are verified. Seven retained High image findings have the documented scoped disposition; optional recipes remain experimental. Public npm publication is not provided.
 
 ## Delivery order
 
-1. Finish milestone A acceptance and exact private candidate qualification, then review publication and verify the released installation.
-2. Qualify failed/interrupted MCP effects and two independent model endpoints for beta.
+1. Qualify remaining failed/interrupted MCP effects, injection/schema/resource cases under MA-008.
+2. Qualify the second independently hosted endpoint and capability/failure matrix under MA-009, then beta publication.
 3. Qualify images, attachment delivery, reproducible PDF processing and records workflows against their unchanged criteria.
 
 Done requires every criterion and its evidence. Dependencies gate completion. Amend design and append a dated decision before changing a criterion; never remove an unmet criterion merely to claim completion.
@@ -28,7 +28,7 @@ Scope: one mailbox per deployment, direct text replies and operator installation
 | **MA-004 · done** | Live text and tenant qualification · [features](../../design/features.md), [security](../../design/security.md) | Verify separate recipient arrival, follow-ups, ambiguous requests, unavailable services and quoted injection cases. Record allowed/denied sender and mailbox access plus administrator acceptance of the configured Microsoft 365 deployment assumptions. Acceptance command declares bounded synthetic effects and produces a redacted report; no broader agent grants are introduced merely for testing. | MA-002, MA-003 |
 | **MA-005 · done** | Operational status and safe retry · [operations](../../design/operations.md) | Report baseline completion, last successful poll, backlog, approvals/uncertainty and categorized failures. Local health distinguishes liveness/readiness without a public endpoint. Eligible reads use bounded jitter/backoff and `Retry-After`; budgets/cancellation/fences hold and uncertain sends/writes are never blindly retried. Operational queries are bounded as metadata grows. | MA-001 |
 | **MA-006 · done** | Recovery and upgrade contract · [operations](../../design/operations.md), [architecture](../../design/architecture.md) | Recorded outage, credential rotation, stopped backup/restore and upgrade drills with queued/approved/uncertain work. Establish state version/migrations, compatibility checks and rollback limits; provider reconciliation remains explicit after restore. Document exact operator procedures. | MA-005 |
-| **MA-007 · in progress** | Public alpha artifacts · [vision](../../design/vision.md), [security](../../design/security.md), [engineering](../../design/engineering-principles.md) | Choose license/repository/package/image names and maintenance contact. Add license, security/support policy, contribution guide, changelog, explicit package contents and versioned release workflow. Hosted CI and installation from packed CLI/released image pass. Review public source/history/artifacts for private material and dependency/image issues. Archive original incident evidence and related historical records unchanged outside the public tree; create a separate sanitized acceptance summary and verify active public links. README advertises only qualified support. | MA-001–MA-006 |
+| **MA-007 · done** | Public alpha artifacts · [vision](../../design/vision.md), [security](../../design/security.md), [engineering](../../design/engineering-principles.md) | Choose license/repository/package/image names and maintenance contact. Add license, security/support policy, contribution guide, changelog, explicit package contents and versioned release workflow. Hosted CI and installation from packed CLI/released image pass. Review public source/history/artifacts for private material and dependency/image issues. Archive original incident evidence and related historical records unchanged outside the public tree; create a separate sanitized acceptance summary and verify active public links. README advertises only qualified support. | MA-001–MA-006 |
 
 ## B · Qualified MCP beta
 
